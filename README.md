@@ -1,5 +1,14 @@
 # dubbo-demo
 dubbo demo
+
+dubbo-common-parent：  maven 父类
+dubbo-common-core:  公共核心类
+dubbo-facade-admin: admin 服务接口
+dubbo-service-admin:  admin dubbo 服务提供者
+dubbo-web-admin:  admin dubbo 服务消费者
+
+使用的技术：spring,spring mvc,mybatis,redis,dubbo,zookeeper,swagger
+
 使用maven构建Doubbo服务的可执行jar包
 Dobbo 服务的运行方式
 1、使用Servlet容器运行（Tomcat、JBoss等）
