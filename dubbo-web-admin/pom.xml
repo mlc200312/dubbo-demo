@@ -18,10 +18,12 @@
 		<dependency>
 			<groupId>com.dubbo.common</groupId>
 			<artifactId>dubbo-common-core</artifactId>
+			<version>${dubbo-common-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.dubbo.facade</groupId>
 			<artifactId>dubbo-facade-admin</artifactId>
+			<version>${dubbo-facade-admin.version}</version>
 		</dependency>
 
 		<!-- spring -->
