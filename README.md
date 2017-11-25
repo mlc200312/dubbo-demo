@@ -8,3 +8,6 @@ Dobbo 服务的运行方式
   缺点：Doubbo本身提供了高级特性没用上，自己编写启动类可能会有缺陷
 3、使用Dubbo框架提供的Main方法类来运行（Spring容器）
   优点：框架本身提供（com.alibaba.doubo.container.Main）,可实现优雅关机（ShutdownHook）
+
+启动dubbo服务
+  java -jar dubbo-service-admin.jar &
