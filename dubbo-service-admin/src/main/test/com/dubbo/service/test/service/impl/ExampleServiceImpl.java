@@ -1,4 +1,4 @@
-package com.dubbo.service.admin.service.impl;
+package com.dubbo.service.test.service.impl;
 
 import java.util.UUID;
 
@@ -12,16 +12,21 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dubbo.facade.admin.service.ExampleService;
-import com.dubbo.service.admin.mapper.ExampleMapper;
+import com.dubbo.service.test.mapper.ExampleMapper;
 
 @Service("exampleService")
 @Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 public class ExampleServiceImpl implements ExampleService {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(ExampleServiceImpl.class);
-
+	
 	@Resource
 	private ExampleMapper exampleMapper;
+
+	@Override
+	public void insert(int count) {
+		exampleMapper.insert(count);
+	}
 
 	@Override
 	public int testJdbc() {

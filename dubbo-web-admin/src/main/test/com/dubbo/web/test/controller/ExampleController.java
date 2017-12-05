@@ -1,4 +1,4 @@
-package com.dubbo.web.admin.controller;
+package com.dubbo.web.test.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import com.dubbo.common.core.base.BaseController;
 import com.dubbo.common.core.util.RestApiResponse;
 import com.dubbo.facade.admin.service.ExampleService;
 import com.dubbo.web.admin.util.CacheUtils;
+import com.dubbo.web.test.util.TestLockThread;
 
 @Api("ExampleController")
 @RestController
@@ -28,6 +30,8 @@ public class ExampleController extends BaseController {
 
 	@Resource
 	private ExampleService exampleService;
+	@Resource
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@ApiOperation(value = " 测试api", notes = " 测试api")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "success") })
@@ -81,6 +85,25 @@ public class ExampleController extends BaseController {
 	@ResponseBody
 	public RestApiResponse<String> testLogBack() {
 		exampleService.testLog();
+		return success();
+	}
+
+	@ApiOperation(value = " 测试分布式锁", notes = " 测试分布式锁")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "success") })
+	@RequestMapping(value = "/testLock", method = RequestMethod.POST)
+	@ResponseBody
+	public RestApiResponse<String> testLock() {
+
+		Thread thread1 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread1"));
+		Thread thread2 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread2"));
+		Thread thread3 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread3"));
+		Thread thread4 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread4"));
+
+		thread1.start();
+		thread2.start();
+		thread3.start();
+		thread4.start();
+
 		return success();
 	}
 
