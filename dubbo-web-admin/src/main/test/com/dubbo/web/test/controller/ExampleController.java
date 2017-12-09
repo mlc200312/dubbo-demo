@@ -19,7 +19,7 @@ import com.dubbo.common.core.base.BaseController;
 import com.dubbo.common.core.util.RestApiResponse;
 import com.dubbo.facade.admin.service.ExampleService;
 import com.dubbo.web.admin.util.CacheUtils;
-import com.dubbo.web.test.util.TestLockThread;
+import com.dubbo.web.test.util.TestSynThread;
 
 @Api("ExampleController")
 @RestController
@@ -94,10 +94,10 @@ public class ExampleController extends BaseController {
 	@ResponseBody
 	public RestApiResponse<String> testLock() {
 
-		Thread thread1 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread1"));
-		Thread thread2 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread2"));
-		Thread thread3 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread3"));
-		Thread thread4 = new Thread(new TestLockThread(exampleService, redisTemplate, "thread4"));
+		Thread thread1 = new Thread(new TestSynThread(exampleService, redisTemplate, "thread1"));
+		Thread thread2 = new Thread(new TestSynThread(exampleService, redisTemplate, "thread2"));
+		Thread thread3 = new Thread(new TestSynThread(exampleService, redisTemplate, "thread3"));
+		Thread thread4 = new Thread(new TestSynThread(exampleService, redisTemplate, "thread4"));
 
 		thread1.start();
 		thread2.start();

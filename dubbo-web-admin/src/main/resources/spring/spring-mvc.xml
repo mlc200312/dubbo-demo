@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器  -->
-	<context:component-scan base-package="com.dubbo.web.admin.controller" />
+	<context:component-scan base-package="com.dubbo.web.*.controller" />
 
 	<!-- spring mvc 注解驱动，@ResponseBody,@RequestMapping... -->
 	<mvc:annotation-driven />

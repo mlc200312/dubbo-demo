@@ -1,52 +1,27 @@
 package com.dubbo.web.test.util;
 
-import org.springframework.data.redis.core.RedisTemplate;
-
-import com.dubbo.facade.admin.service.ExampleService;
-import com.dubbo.web.admin.util.RedisLock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TestLockThread implements Runnable {
 
-	private ExampleService exampleService;
-	private RedisTemplate<String, Object> redisTemplate;
 	private String name;
 
-	public TestLockThread(ExampleService exampleService, RedisTemplate<String, Object> redisTemplate, String name) {
+	public TestLockThread(String name) {
 		super();
-		this.exampleService = exampleService;
-		this.redisTemplate = redisTemplate;
 		this.name = name;
 	}
 
-	private Object syn = "syn";
+	private static ReentrantLock lock = new ReentrantLock();
 
 	@Override
 	public void run() {
-		RedisLock lock = new RedisLock(redisTemplate, "Lock1");
 		try {
-			if (lock.lock()) {
-				synchronized (syn) {
-					method();
-				}
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			lock.lock();
+			method();
 		} finally {
 			lock.unlock();
 		}
 	}
-
-	// private ReentrantLock lock = new ReentrantLock();
-	//
-	// @Override
-	// public void run() {
-	// try {
-	// lock.lock();
-	// method();
-	// } finally {
-	// lock.unlock();
-	// }
-	// }
 
 	private void method() {
 		Constant.count++;
@@ -55,8 +30,20 @@ public class TestLockThread implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		exampleService.insert(Constant.count);
 		System.out.println(name + "打印了--------------------------------" + Constant.count);
+	}
+
+	public static void main(String[] args) {
+
+		Thread thread1 = new Thread(new TestLockThread("thread1"));
+		Thread thread2 = new Thread(new TestLockThread("thread2"));
+		Thread thread3 = new Thread(new TestLockThread("thread3"));
+		Thread thread4 = new Thread(new TestLockThread("thread4"));
+
+		thread1.start();
+		thread2.start();
+		thread3.start();
+		thread4.start();
 	}
 
 }
