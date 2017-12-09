@@ -6,6 +6,8 @@ dubbo-common-core:  公共核心类
 dubbo-facade-admin: admin 服务接口
 dubbo-service-admin:  admin dubbo 服务提供者
 dubbo-web-admin:  admin dubbo 服务消费者
+dubbo-admin:  dubbo 后台管理平台
+dubbo-monitor:  dubbo 监控中心
 
 使用的技术：spring,spring mvc,mybatis,redis,dubbo,zookeeper,swagger
 
