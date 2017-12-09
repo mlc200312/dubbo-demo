@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<!-- spring ioc 自动扫描 -->
-	<context:component-scan base-package="com.dubbo.service.admin" />
+	<context:component-scan base-package="com.dubbo.service.*" />
 
 	<!-- 使用annotation定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
@@ -33,7 +33,7 @@
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.dubbo.service.admin.mapper"></property>
+		<property name="basePackage" value="com.dubbo.service.*.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 

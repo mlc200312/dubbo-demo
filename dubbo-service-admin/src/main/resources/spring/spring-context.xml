@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 	<!-- 自动扫描该包  -->
-	<context:component-scan base-package="com.dubbo.service.admin" />
+	<context:component-scan base-package="com.dubbo.service.*" />
 
 	<!-- 使用annotation注入实例，当使用<context:component-scan/>后，可省略 -->
 	<context:annotation-config />
